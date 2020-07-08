@@ -1,0 +1,49 @@
+这是一种筛法的思路，求某自然数以内的所有素数。先准备好十以内的素数，由此以筛法求出一百以内的全部素数，
+再由一百以内的素数筛出一千以内的素数，以此类推到所给定的自然数。最后每十行换行，水平制表输出。
+代码有问题，这里暂时存放一下。
+#include<iostream>
+#include<cstdio>
+#include<cmath>
+using namespace std;
+int main (){
+	bool a[1000000];
+	int sushu[100000]={2,3,5,7};
+	int num,max=1,i,j,n=4,count=0;
+	cin>>num;
+	for(i=0;i<num;i++){
+		a[i]=true;
+	}
+	while(1){
+		max*=10;
+		if(max>num){
+			for(i=0;i<n;i++){
+				for(j=2;sushu[i]*j<=num;j++){
+					a[i*j]=false;
+				}
+			}
+			break;
+		}
+		else{
+			for(i=0;i<n;i++){
+				for(j=2;i*j<max*10;j++){
+					a[i*j]=false;
+				}
+			}
+			for(i=n-1;i<max*10;i++){
+				if(a[i]==true){
+					sushu[n]=i;
+					n++;
+				}
+			}
+		}
+	}
+	for(i=2;i<num;i++){
+		if(a[i]==true){
+			printf("%d/t",&i);
+			count++;
+			if(count%10==0){
+				printf("/n");
+			}
+		}
+	}
+}
