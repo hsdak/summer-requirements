@@ -3,7 +3,7 @@
 #include<cmath>
 using namespace std;
 double S(double a,double b,double c){//输入三角形三边 
-	double p,s,t;
+	double p,s;
 	p=(a+b+c)/2;
 	s=pow(p*(p-a)*(p-b)*(p-c),0.5);//海伦公式计算面积 
 	return s;
