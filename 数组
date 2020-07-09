@@ -60,3 +60,51 @@ int maxArea(vector<int>& height) {
         }
         return v0;
     }
+第四题
+给你一个整数数组 nums，每次 操作 会从中选择一个元素并 将该元素的值减少 1。
+如果符合下列情况之一，则数组 A 就是 锯齿数组：
+	每个偶数索引对应的元素都大于相邻的元素，即 A[0] > A[1] < A[2] > A[3] < A[4] > ...
+	或者，每个奇数索引对应的元素都大于相邻的元素，即 A[0] < A[1] > A[2] < A[3] > A[4] < ...
+返回将数组 nums 转换为锯齿数组所需的最小操作次数。
+代码：
+int movesToMakeZigzag(vector<int>& nums) {
+        int i,count1=0,count2=0;
+        i=1;
+        while(i<nums.size()){//偶数索引的情况
+            if(nums[i]>nums[i-1]){
+                count1++;
+                continue;
+            }
+            if(nums[i]>nums[i+1]){
+                count1++;
+                continue;
+            }
+            i+=2;
+        }
+        i=0;
+        while(i<nums.size()){//奇数索引的情况
+            if(i=0){
+                if(nums[i]>nums[i+1]){
+                    count2++;
+                    continue;
+                }
+            }
+            else{
+                if(nums[i]>nums[i-1]){
+                    count2++;
+                    continue;
+                }
+                if(nums[i]>nums[i+1]){
+                    count2++;
+                    continue;
+                }
+            }
+        }
+        //比较哪种更短并输出
+        if(count1>=count2){
+            return count2;
+        }
+        else{
+            return count1;
+        }
+    }
