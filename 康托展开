@@ -2,7 +2,7 @@
 #include<cstdio>
 #include<cmath>
 using namespace std;
-int A(int a){//求阶层函数 
+int A(int a){//求阶乘函数 
 	int i,n=1;
 	for(i=1;i<=a;i++){
 		n*=i;
