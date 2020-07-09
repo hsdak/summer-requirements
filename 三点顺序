@@ -5,7 +5,7 @@ using namespace std;
 int main(){
 	double x1,x2,x3,y1,y2,y3,a;
 	cin>>x1>>y1>>x2>>y2>>x3>>y3;
-	a=(x2-x1)*(y3-y1)-(y2-y1)*(x3-x1);
+	a=(x2-x1)*(y3-y1)-(y2-y1)*(x3-x1);//向量的叉积与方向角的正弦同号
 	if(a>0){
 		cout<<"逆时针"<<endl;
 	}
