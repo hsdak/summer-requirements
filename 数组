@@ -211,3 +211,17 @@ int searchInsert(vector<int>& nums, int target) {
         return i;
     }
  第十题
+ 统计有序数列中的负数
+ 给你一个 m * n 的矩阵 grid，矩阵中的元素无论是按行还是按列，都以非递增顺序排列。 
+请你统计并返回 grid 中 负数 的数目。
+ c++代码：
+int countNegatives(vector<vector<int>>& grid) {
+        int count = 0;
+        for(int i = 0;i<grid.size();i++){//遍历查找
+            for(int j= 0;j<col = grid[0].size();j++){
+                if(grid[i][j]<0)
+                    count++;
+            }
+        }
+        return count;
+    }
