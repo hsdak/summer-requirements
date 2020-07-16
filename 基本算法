@@ -46,6 +46,7 @@ int maxSubArray(vector<int>& nums) {
 	1 <= n <= 500
 	-10^3 <= satisfaction[i] <= 10^3
 c++代码：
+贪心：
 int maxSatisfaction(vector<int>& satisfaction) {
         int i,j,sum,max=0,time;
         sort(satisfaction.begin(),satisfaction.end());
