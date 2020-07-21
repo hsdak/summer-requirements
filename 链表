@@ -70,3 +70,24 @@ int getDecimalValue(ListNode* head) {
         }
         return sum;
     }
+第五题
+环形链表
+给定一个链表，判断链表中是否有环。
+思路：快指针与慢指针相遇，则有环；快指针到头，则无环。
+c++代码：
+bool hasCycle(ListNode *head) {
+        ListNode *p1=head,*p2=head;
+        while(p2!=0){
+            if(p2->next==0){
+                break;
+            }
+            else{
+                p2=p2->next->next;
+            }
+            p1=p1->next;
+            if(p1==p2){
+                return true;
+            }
+        }
+        return false;
+    }
