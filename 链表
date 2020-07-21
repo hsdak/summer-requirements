@@ -4,6 +4,7 @@
 例 1：
 输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3
 输出：Reference of the node with value = 8输入解释：相交节点的值为 8 （注意，如果两个列表相交则不能为 0）。
+思路：双指针分别从两链表头结点每步一个链节走到尾结点，再从另一个头结点走到交点，经过的链节数量相同。
 c++代码：
  ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
         ListNode *t1 = headA; ListNode *t2 = headB;
