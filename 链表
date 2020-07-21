@@ -118,3 +118,33 @@ bool isPalindrome(ListNode* head) {
         }
         return true;
     }
+第七题
+合并两个有序链表
+将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 
+示例：
+输入：1->2->4, 1->3->4
+输出：1->1->2->3->4->4
+思路：将两个链表的值存入数组，排序后新建链表进行储存
+c++代码：
+vector<int> A;
+ListNode *tempL1 = l1;
+while (tempL1 != nullptr) {
+	A.push_back(tempL1->val);
+	tempL1 = tempL1->next;
+}
+ListNode *tempL2 = l2;
+while (tempL2 != nullptr) {
+	A.push_back(tempL2->val);
+	tempL2 = tempL2->next;
+}
+sort(A.begin(), A.end(), less<int>());
+
+ListNode *l3 = new ListNode(0);
+ListNode *ptr = l3;
+for (auto iter = A.begin(); iter != A.end(); ++iter)
+{
+	ListNode *temp = new ListNode(*iter);
+	ptr->next = temp;
+	ptr = ptr->next;
+}
+return l3->next;
