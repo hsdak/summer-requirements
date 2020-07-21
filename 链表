@@ -56,3 +56,17 @@ void deleteNode(ListNode* node) {
         node->next = node->next->next;
     }
 第四题
+二进制链表转整数
+给你一个单链表的引用结点 head。链表中每个结点的值不是 0 就是 1。已知此链表是一个整数数字的二进制表示形式。
+请你返回该链表所表示数字的 十进制值 。
+思路：从最左边的一位数开始，每次左移一位，再加上右边的一位数，加到最右端为止。
+c++代码：
+int getDecimalValue(ListNode* head) {
+        ListNode*p;
+        int sum=0;
+        while(p!=0){
+            sum=(sum<<1)+p->val;
+            p=p->next;
+        }
+        return sum;
+    }
