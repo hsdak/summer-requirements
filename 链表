@@ -18,3 +18,28 @@ c++代码：
         }
         return t1;
     }
+第二题：
+返回倒数第K个节点
+实现一种算法，找出单向链表中倒数第 k 个节点。返回该节点的值。
+注意：本题相对原题稍作改动
+示例：
+输入： 1->2->3->4->5 和 k = 2
+输出： 4
+说明：
+给定的 k 保证是有效的。
+思路：先将前指针与后指针的距离固定好，之后同步前进，直到前指针走到结尾为止。
+c++代码：
+int kthToLast(ListNode* head, int k) {
+        ListNode *p1=head,*p2=head;
+        if(head==NULL){
+            return 0;
+        }
+        while(k--){
+            p2=p2->next;
+        }
+        while(p2!=NULL){
+            p2=p2->next;
+            p1=p1->next;
+        }
+        return p1->val;
+    }
