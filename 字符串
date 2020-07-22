@@ -47,3 +47,39 @@ string reverseWords(string s) {
                 // 更新start，去找下一个单词
                 start = end;
             }
+第三题
+气球的最大数量
+给你一个字符串 text，你需要使用 text 中的字母来拼凑尽可能多的单词 "balloon"（气球）。
+字符串 text 中的每个字母最多只能被使用一次。请你返回最多可以拼凑出多少个单词 "balloon"。
+示例 1：
+输入：text = "nlaebolko"
+输出：1
+示例 2：
+输入：text = "loonbalxballpoon"
+输出：2
+示例 3：
+输入：text = "leetcode"
+输出：0
+提示：
+	1 <= text.length <= 10^4
+	text 全部由小写英文字母组成
+思路：从每一个字母考虑能拼多少个气球，再取最小值
+c++ code:
+int maxNumberOfBalloons(string text) {
+        int a[5]={0};//储存从每一个字母考虑能拼的单词数
+        for(int n:text){//从前往后数每一个字母有多少个
+            if(n=='b')a[0]++;
+            if(n=='a')a[1]++;
+            if(n=='l')a[2]++;
+            if(n=='o')a[3]++;
+            if(n=='n')a[4]++;
+        }
+        a[2]/=2;
+        a[3]/=2;
+        for(int i=0;i<4;i++){//冒泡排序使a[4]为最小值
+            if(a[i]<a[i+1]){
+                a[i+1]=a[i];
+            }
+        }
+        return a[4];
+    }
