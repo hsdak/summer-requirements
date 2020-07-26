@@ -185,3 +185,35 @@ public:
         return ret;
     }
 };
+第六题
+变位词组：
+编写一种方法，对字符串数组进行排序，将所有变位词组合在一起。变位词是指字母相同，但排列不同的字符串。
+注意：本题相对原题稍作修改
+示例:
+输入: ["eat", "tea", "tan", "ate", "nat", "bat"],
+输出:
+[
+  ["ate","eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+说明：
+	所有输入均为小写字母。
+	不考虑答案输出的顺序。
+c++ code:
+vector<vector<string>> groupAnagrams(vector<string> &strs){
+        if(strs.empty())
+            return {{}};
+        int size = strs.size();
+        vector<vector<string>> res;
+        vector<string> tmp = strs;
+        unordered_map<string, vector<string>> strsMap;
+        for(int i = 0; i < size; i++){
+            sort(tmp[i].begin(), tmp[i].end());
+            strsMap[tmp[i]].push_back(strs[i]);
+        }
+        for(auto s : strsMap){
+            res.push_back(s.second);
+        }
+        return res;
+    }
