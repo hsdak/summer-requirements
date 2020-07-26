@@ -102,7 +102,7 @@ int maxNumberOfBalloons(string text) {
 c++ code:
 int numDecodings(string s) {
     if (s[0] == '0') return 0;
-    int pre = 1, curr = 1;//dp[-1] = dp[0] = 1
+    int pre = 1, curr = 1;
     for (int i = 1; i < s.size(); i++) {
         int tmp = curr;
         if (s[i] == '0')
