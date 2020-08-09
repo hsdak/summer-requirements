@@ -61,11 +61,11 @@ void jiaocha(vector<vector<int> >&a){
 	int r1,r2,t,i;
 	bool flag[4]={false};//记录个体的状态：基因是否已参与重组
 	srand(time(0));
-	r1=rand()%4;
+	r1=rand()%4;//随机配对
 	flag[r1]=true;
 	while(r2!=r1){
 		srand(time(0));
-		r2=rand()%4;
+		r2=rand()%4;//随机配对
 	}
 	flag[r2]=true;
 	t=a[r1][0];
@@ -96,7 +96,7 @@ void bianyi(vector<vector<int> >&a){
 	int i,r1,r2;
 	for(i=0;i<4;i++){
 		srand(time(0));
-		r1=rand()%1000;
+		r1=rand()%1000;//随机获取发生变异的基因座
 		if(r1>500){
 			srand(time(0));
 			r2=rand()%1000;//假设千分之一的概率发生变异
