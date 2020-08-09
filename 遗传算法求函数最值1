@@ -2,6 +2,8 @@
 //Rosenbrock函数的全局最大值计算
 //max f(x1,x2)=100(x1^2-x2^2)^2+(1-x1)^2
 //s.t. -2.048<=xi<=2.048(xi=1,2)
+分析：
+本题的基因组较为简单，选择由两个2位2进制数组成的4位2进制数组成的编码作为基因序列，并通过在常规基础上简化过的步骤进行运算。
 c++code:
 #include<iostream>
 #include<ctime>
@@ -132,7 +134,7 @@ int main(){
 	vector<vector<int> > a(4,vector<int>(5));
 	int i,j,max;
         chushi(a);//初始种群的产生
-	for(i=0;i<5;i++){
+	for(i=0;i<5;i++){//培养五代
 		for(j=0;j<4;j++){
 			a[j][4]=shiying(a[j][0],a[j][1],a[j][2],a[j][3]);
 		}
