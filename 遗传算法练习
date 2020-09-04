@@ -1,0 +1,158 @@
+//Rosenbrock函数的全局最大值计算
+//max f(x1,x2)=100(x1^2-x2^2)^2+(1-x1)^2
+//s.t. -2.048<=xi<=2.048(i=1,2)
+#include<iostream>
+#include<ctime>
+#include<cstdlib>
+#include<vector>
+#include<windows.h>
+using namespace std;
+//初始群体的产生
+//产生10个初始个体，基因编码为22位。 
+void chushi(vector<vector<int> >&a){
+	int i,j;
+	srand(time(0)+rand());
+	for(i=0;i<a.size();i++){//8个个体 
+		for(j=0;j<a[0].size()-1;j++){//基因编码长度为22
+			if(rand()%1000>500){//随机确定编码上每一位为0或1 
+				a[i][j]=0;
+			}
+			else{
+				a[i][j]=1;
+			}
+		}
+	}
+}
+//适应度计算
+double shiying(vector<int>&a){
+	int i=(a.size()-1)/2;//i等于一个基因的编码长度 
+	double f,x1=0,x2=0;
+	while(i--){
+		x1=(x1+a[10-i])*2;
+	}
+	//解码基因一的序列 
+	x1-=2048;
+	x1/=1000;
+	i=(a.size()-1)/2;//i等于一个基因的编码长度
+	while(i--){
+		x2=(x2+a[21-i])*2;
+	}
+	//解码基因二的序列 
+	x2-=2048;
+	x2/=1000;
+	f=100*(x1*x1-x2*x2)*(x1*x1-x2*x2)+(1-x1)*(1-x1);//计算适应度 
+	return f;
+}
+//选择运算
+void xuanze(vector<vector<int> >&a){
+	vector<vector<int> > b;//种群b用于储存从种群a中选择出来的个体 
+	int i;
+	int r;//r用于储存生成的随机数 
+	int s=0,si=0;
+	b=a;
+	srand(time(0)+rand());
+	//计算适应度的累加值 
+	for(int j=0;j<a.size();j++){
+			s+=a[j][a[0].size()-1];
+		}
+	//轮盘选择 
+	for(i=0;i<a.size();i++){
+		si=0;
+		//生成0到适应度累计值之间的随机数  
+		r=rand()%s;
+		for(int j=0;j<a[0].size()-1;j++){//确定本次选择的一个个体 
+			si+=a[j][a[0].size()-1];
+			if(r<si){
+				b[i]=a[j];
+				break;
+			}
+		}
+	}
+	a=b;//种群a完成一轮选择 
+}
+//交叉运算
+void jiaocha(vector<vector<int> >&a){
+	int r1,r2=-1,r3,t,i;//r1为第一个选出来的个体，r2是第二个选出来的个体
+	//r1、r2的基因序列将可能交叉 
+	//r3是交叉点位，t用来做交换操作的中间变量 
+	bool flag[10]={false};//储存种群中个体的状态：是否已被选择 
+	if(rand()%1000>900){
+		srand(time(0)+rand());
+		r1=rand()%a.size();//生成r1 
+		flag[r1]=true;//r1状态标注为已选 
+		do{
+			r2=rand()%a.size();//生成r2, 
+		}
+		while(!flag[r2]);
+		flag[r2]=true;// r2状态标注为已选 
+		r3=rand()%(a[0].size()-1);//确定交叉点位置 
+		for(i=r3;i<a[0].size()-1;i++){//进行交叉操作 
+		    t=a[r1][i];
+			a[r1][i]=a[r2][i];
+			a[r2][i]=t;
+		}
+	}
+}
+//变异运算
+void bianyi(vector<vector<int> >&a){
+	int i,r1,r2;
+	srand(time(0)+rand());
+	for(i=0;i<a.size();i++){
+		r1=rand()%1000;
+		if(r1>950){//5%的变异概率 
+			r2=rand()%(a[0].size()-1);//确定变异位置 
+			//变异 
+			if(a[i][r2]==0){
+				a[i][r2]=1;
+			}
+			else{
+				a[i][r2]=0;
+			}
+		}
+	}
+}
+//主函数
+int main(){
+	vector<vector<int> > a(10,vector<int>(23));
+	int i,j,max,n;
+    chushi(a);//初始群体的产生 
+    cout<<"输入迭代次数:"<<endl; 
+	cin>>n;
+	cout<<"进度："<<endl;//设有运行进度的显示 
+	for(i=0;i<n;i++){
+		for(j=0;j<4;j++){
+			a[j][a[0].size()-1]=shiying(a[j]);
+		}
+		cout<<i<<"/"<<n<<" ";//分子表示当前迭代次数，分母表示总迭代次数 
+		//输出每次选择运算之后的所有个体的适应度，用于加强视觉效果 
+		for(auto &k:a){
+			cout<<k[a[0].size()-1]<<" ";
+		}
+		cout<<endl;
+		if((i+1)%10==0){
+			cout<<endl;
+		}
+		if(i==n)break;
+		xuanze(a);//选择运算 
+		jiaocha(a);//交叉运算 
+		bianyi(a);//变异运算 
+	}
+	//逐项比较找出群体中适应度最大的个体及最大适应度 
+	max=a[0][a[0].size()-1];
+	for(i=1;i<a.size();i++){
+		if(max<a[i][a[0].size()-1]){
+			max=a[i][a[0].size()-1];
+		}
+	}
+	//输出最后的种群信息 
+	cout<<endl;
+	cout<<"最终个体："<<endl;
+	for(i=0;i<a.size();i++){
+		for(j=0;j<a[0].size();j++){
+			cout<<a[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	cout<<"max="<<max<<endl;//输出最大适应度，即函数最大值 
+	return 0;
+}
